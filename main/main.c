@@ -10,18 +10,22 @@ Alla fine dell'esercizio visualizzare i nomi dei file corrotti.
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdbool.h>
+#include <string.h>
 
-void changeFileName(char*);			//cambia il nome del file da aprire
+char* changeFileName(char*, int);			//cambia il nome del file da aprire
 _Bool checkValidity(char);			//controlla se il carattere è valido o meno
 
 int main() {
 	FILE* fp;
-	char* name = "..\\File\\file000.txt";
-	char result = NULL;
+	char* name = "..\\File\\file";			//stringa da concatenare								//strionga finale
+	char result;
 	_Bool validity = false;			//flag per indicare se è presente il terminatore di riga (\n)
 	int numberFile = 001;		//001 è il primo file
 
-	fp = fopen(name, "r");		//files è il nume del file che ogni volta viene modificato
+	char *path = changeFileName(name, numberFile);
+	numberFile++;
+
+	fp = fopen(path, "r");		//path è il nume del file che ogni volta viene modificato
 
 	if (fp == NULL) {
 		printf("Errore -> Impossibile aprire il file.");
@@ -39,6 +43,7 @@ int main() {
 		if (result == '\n')			//se è arrivato al terminatore di riga esce dal ciclo, se non è presente il terminatore continua fino alla fine del file
 			break;
 	}
+
 	if (validity) {
 		//stringa valida, contiene sia i caratteri giusti che il temrinatore
 		printf("valido");
@@ -48,13 +53,32 @@ int main() {
 	}
 
 	validity = false;
-	changeFileName(name);
+
+
 
 	return 0;
 }
 
-void changeFileName(char *name) {
-	
+char* changeFileName(char *name, int numberFile) {
+	char* path, path1;
+	path = name;
+
+	printf("%s\n", path);
+
+	char index[7];
+	sprintf(index, "%d", numberFile);
+
+	strcpy(index, ".txt");		//aggiungo il .txt al numero del file
+	printf("%s\n", index);
+
+	path1 = (char*)malloc(sizeof(path) + sizeof(index));
+
+	strcpy(path1, path);		//creo il path
+	strcpy(path1, index);
+
+	printf("%s\n", path1);
+
+	return path;
 }
 
 _Bool checkValidity(char c) {
