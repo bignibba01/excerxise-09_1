@@ -21,7 +21,7 @@ char* returnFileName(int);
 
 int main() {
 
-	int numberFile = 0;		//001 è il primo file
+	int numberFile = 1;		//001 è il primo file
 
 	while (numberFile <= 58) {
 
