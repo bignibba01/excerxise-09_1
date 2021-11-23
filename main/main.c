@@ -61,26 +61,20 @@ int main() {
 }
 
 char* changeFileName(char* name, int numberFile) {
-	char* path, path1[50];
-	path = name;
-
-	printf("%s\n", path);
-
+	char *path1;
 	char index[7];
+
 	sprintf(index, "%d", numberFile);
 
 	strcat(index, ".txt");		//aggiungo il .txt al numero del file
 	printf("%s\n", index);
+
+	printf("%d\n", (strlen(name) + sizeof(index)));
+
+	path1 = (char*)malloc((strlen(name) + sizeof(index)));
 	strcpy(path1, name);
-
+	
 	strcat(path1, index);
-
-	/*path1 = (char*)malloc(sizeof(path) + sizeof(index));
-
-	strcpy(path1, path);		//creo il path
-	strcpy(path1, index);
-
-	printf("%s\n", path1);*/
 
 	return path1;
 }
