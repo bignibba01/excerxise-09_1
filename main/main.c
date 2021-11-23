@@ -23,6 +23,7 @@ int main() {
 	int numberFile = 001;		//001 è il primo file
 
 	char *path = changeFileName(name, numberFile);
+	printf("%s\n", path);
 	numberFile++;
 
 	fp = fopen(path, "r");		//path è il nume del file che ogni volta viene modificato
@@ -59,8 +60,8 @@ int main() {
 	return 0;
 }
 
-char* changeFileName(char *name, int numberFile) {
-	char* path, path1;
+char* changeFileName(char* name, int numberFile) {
+	char* path, path1[50];
 	path = name;
 
 	printf("%s\n", path);
@@ -68,17 +69,20 @@ char* changeFileName(char *name, int numberFile) {
 	char index[7];
 	sprintf(index, "%d", numberFile);
 
-	strcpy(index, ".txt");		//aggiungo il .txt al numero del file
+	strcat(index, ".txt");		//aggiungo il .txt al numero del file
 	printf("%s\n", index);
+	strcpy(path1, name);
 
-	path1 = (char*)malloc(sizeof(path) + sizeof(index));
+	strcat(path1, index);
+
+	/*path1 = (char*)malloc(sizeof(path) + sizeof(index));
 
 	strcpy(path1, path);		//creo il path
 	strcpy(path1, index);
 
-	printf("%s\n", path1);
+	printf("%s\n", path1);*/
 
-	return path;
+	return path1;
 }
 
 _Bool checkValidity(char c) {
