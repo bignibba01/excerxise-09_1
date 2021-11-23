@@ -20,7 +20,7 @@ int main() {
 	char* name = "..\\File\\file";			//stringa da concatenare								//strionga finale
 	char result;
 	_Bool validity = false;			//flag per indicare se è presente il terminatore di riga (\n)
-	int numberFile = 001;		//001 è il primo file
+	int numberFile = 1;		//001 è il primo file
 
 	char *path = changeFileName(name, numberFile);
 	printf("%s\n", path);
@@ -62,9 +62,9 @@ int main() {
 
 char* changeFileName(char* name, int numberFile) {
 	char *path1;
-	char index[7];
+	char index[20];
 
-	sprintf(index, "%d", numberFile);
+	sprintf(index, "%03d", numberFile);
 
 	strcat(index, ".txt");		//aggiungo il .txt al numero del file
 	printf("%s\n", index);
@@ -80,7 +80,7 @@ char* changeFileName(char* name, int numberFile) {
 }
 
 _Bool checkValidity(char c) {
-	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122) || c == '\'' || c == ',' || c == '\n')		//valore valido => 65-90 (A-Z), 97-122 (a-z), \n, "," , "\'"
+	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122) || c == ' ' || c == '\'' || c == ',' || c == '\n')		//valore valido => 65-90 (A-Z), 97-122 (a-z), \n, "," , "\'"
 		return true;
 	else
 		return false;
