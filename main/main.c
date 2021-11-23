@@ -9,15 +9,15 @@ Alla fine dell'esercizio visualizzare i nomi dei file corrotti.
 VENTRUCCI TOMAS, MARCHETTI DAVIDE, ZOLI FEREDEICO
 */
 
-#define _CRT_SECURE_NO_WARNINGS				//usata per visual studio in modo tale che esegua i metodi sprintf, strcat, fopen, strcpy; considerate non sicure
+#define _CRT_SECURE_NO_WARNINGS				//usata per visual studio in modo tale che esegua i metodi sprintf, strcat, fopen, strcpy; considerati non sicuri
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 
 char* changeFileName(char*, int);			//cambia il nome del file da aprire
-_Bool checkValidity(char);			//controlla se il carattere è valido o meno
-char* returnFileName(int);
+_Bool checkValidity(char);					//controlla se il carattere è valido o meno
+char* returnFileName(int);					//ritorna il nome del file
 
 int main() {
 
@@ -28,13 +28,13 @@ int main() {
 		FILE* fp;			//dichiaro il file da aprire
 		char* name = "..\\File\\file";			//stringa da concatenare
 		char result;		//carattere letto dal file
-		_Bool validity = false;			//flag per indicare se è presente il terminatore di riga (\n)
+		_Bool validity = false;			//flag per indicare la validità della riga
 
 		char* path = changeFileName(name, numberFile);		//path del file di testo 
 		char* fileName = returnFileName(numberFile);		//nome del file di testo incrementato
 		numberFile++;			//"indice" dei file di testo
 
-		fp = fopen(path, "r");		//path è il nume del file che ogni volta viene modificato
+		fp = fopen(path, "r");		//path è il nome del file che ogni volta viene modificato
 
 		if (fp == NULL) {			//non ha avuto accesso al file
 			printf("Errore -> Impossibile aprire il file.");
@@ -45,14 +45,11 @@ int main() {
 
 			if (result == '\n') {			//se è arrivato al terminatore di riga esce dal ciclo, se non è presente il terminatore continua fino alla fine del file
 				break;
-			}else if (!checkValidity(result)) {		//controlla la vilidità del carattere
+			} else if (!checkValidity(result)) {		//controlla la validità del carattere
 				validity = false;
 				break;
-			}
-			else
+			} else
 				validity = true;
-
-
 		}
 
 		if (!validity) {			//se non è valido il file allora fa l'output
@@ -72,8 +69,8 @@ char* changeFileName(char* name, int numberFile) {
 	char index[8];			//nome del file di testo
 
 	sprintf(index, "%03d", numberFile);			//converto il numero intero in un carattere con almeno 3 cifre e se non ci sono ritora degli 0
-
 	strcat(index, ".txt");		//aggiungo il .txt al numero del file
+
 	path = (char*)malloc((strlen(name) + sizeof(index)));				//alloco lo spazio per la stringa contenente il path del file
 	strcpy(path, name);
 	
@@ -82,7 +79,7 @@ char* changeFileName(char* name, int numberFile) {
 }
 
 _Bool checkValidity(char c) {
-	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122) || c == ' ' || c == '\'' || c == ',')		//valore valido => 65-90 (A-Z), 97-122 (a-z), \n, "," , "\'"
+	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122) || c == ' ' || c == '\'' || c == ',')		//valore valido => 65-90 (A-Z), 97-122 (a-z), "," , "\'"
 		return true;
 	else
 		return false;
